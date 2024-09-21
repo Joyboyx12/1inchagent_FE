@@ -295,16 +295,20 @@ async function main() {
     return address; // Trả về địa chỉ nếu không tìm thấy token hoặc chain không hợp lệ
   };
   
-  
-
-
   const processActionList = async () => {
     for (let i = 0; i < actionList.length; i++) {
       const action = actionList[i];
       console.log("Processing action:", action);
 
       switch (action.type) {
-        
+        case "QA":
+          addMessage({
+            type: MESS_TYPE.BOT,
+            content: action.message
+             
+          });
+
+          break;
         case "Price":
             if (
               action.chain &&
@@ -324,8 +328,8 @@ async function main() {
               type: MESS_TYPE.BOT,
               content:
                 "Sending " +
-                String(action.amount) +
-                " ETH to " +
+                String(ethers.utils.formatEther(action.amount)) +
+                ` ${action.token} to` +
                 action.toAddress,
             });
 
