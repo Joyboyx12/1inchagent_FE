@@ -276,20 +276,26 @@ async function main() {
     }
   };
 
-const getTokenNameByAddress = (chainId: string, address: string): string => {
-  const chain = dataLibraries[chainId];
-
-  if (chain) {
-    const tokens = chain.addresses.split(", ");
-    for (let token of tokens) {
-      const [name, tokenAddress] = token.split(": ");
-      if (tokenAddress.toLowerCase() === address.toLowerCase()) {
-        return name;
+  const getTokenNameByAddress = (chainId: string, address: string): string => {
+    // Kiểm tra xem chainId có tồn tại trong dataLibraries hay không
+    if (chainId in dataLibraries) {
+      const chain = dataLibraries[chainId as keyof typeof dataLibraries];
+  
+      if (chain) {
+        const tokens = chain.addresses.split(", ");
+        for (let token of tokens) {
+          const [name, tokenAddress] = token.split(": ");
+          if (tokenAddress.toLowerCase() === address.toLowerCase()) {
+            return name;
+          }
+        }
       }
     }
-  }
-  return address; // Trả về địa chỉ nếu không tìm thấy token
-};
+    
+    return address; // Trả về địa chỉ nếu không tìm thấy token hoặc chain không hợp lệ
+  };
+  
+  
 
 
   const processActionList = async () => {
