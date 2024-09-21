@@ -40,8 +40,7 @@ interface OpenAIResponse {
 
 export default function PromptInputWithBottomActions() {
   const { chainId, address } = useAccount();
-  const [provider, setProvider] =
-    useState<ethers.providers.Web3Provider | null>(null);
+  const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
   const [prompt, setPrompt] = useState<string>("");
   const { addMessage } = useQuestionContext();
   const [primaryWallet] = useWallets();
@@ -197,7 +196,7 @@ async function main() {
         console.log(allowance)
        if (allowance.allowance === "0"){
              // approve
-             await delay(5000);
+             await delay(2000);
              const approve = await getapprove(chain, src, String(valueInWei) )
              console.log ("Aprrove: " + approve);
              await sendTransaction(
@@ -207,7 +206,7 @@ async function main() {
              );
        }
 
-       await delay(5000);
+       await delay(2000);
     }
 
       // Gọi API oneinch_swap để thực hiện hoán đổi token
@@ -341,10 +340,6 @@ const getTokenNameByAddress = (chainId: string, address: string): string => {
             action.amount &&
             action.slippage
           ) {
-
-          
-            //await swap_info (action.chain,action.from_token_address, action.to_token_address, String(action.amount))
-            //await delay(5000);
             
             await executeSwap(
               action.chain,
@@ -381,7 +376,7 @@ const getTokenNameByAddress = (chainId: string, address: string): string => {
 
     try {
       // Gửi yêu cầu POST đến backend
-      const response = await fetch("http://5.189.157.123:3031/sendPrompt", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/sendPrompt`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -435,7 +430,7 @@ const getTokenNameByAddress = (chainId: string, address: string): string => {
   }
   const errorhandler = async (message: string) => {
     try {
-      const response = await fetch("http://5.189.157.123:3031/error", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/error`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Đặt header cho JSON

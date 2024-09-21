@@ -13,7 +13,7 @@ interface SwapParams {
 
 export async function oneinch_swap(params: SwapParams) {
 
-  const url = "http://5.189.157.123:3031/oneinch_swap";
+  const url = `${process.env.NEXT_PUBLIC_HOST}/oneinch_swap`;
 
   const config: AxiosRequestConfig = {
     headers: {
@@ -59,7 +59,7 @@ export async function oneinch_swap(params: SwapParams) {
 
 export async function getapprove(chain: string, tokenAddress: string, amount:string) {
 
-  const url = "http://5.189.157.123:3031/getapprove";
+  const url = `${process.env.NEXT_PUBLIC_HOST}/getapprove`;
 
   const config: AxiosRequestConfig = {
     headers: {
@@ -100,7 +100,7 @@ export async function getapprove(chain: string, tokenAddress: string, amount:str
 
 export async function checkallowance(chain: string, tokenAddress: string, walletAddress:string) {
 
-  const url = "http://5.189.157.123:3031/checkallowance";
+  const url = `${process.env.NEXT_PUBLIC_HOST}/checkallowance`;
 
   const config: AxiosRequestConfig = {
     headers: {
@@ -143,7 +143,7 @@ export async function checkallowance(chain: string, tokenAddress: string, wallet
 
 export async function get_swaprice(chain: string, src: string, dst: string, amount: string) {
   // Localhost API URL
-  const baseURL = `http://5.189.157.123:3031/get_swaprice`;
+  const baseURL = `${process.env.NEXT_PUBLIC_HOST}/get_swaprice`;
 
   const config = {
     params: {
